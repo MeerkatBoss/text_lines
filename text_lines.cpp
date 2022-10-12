@@ -105,7 +105,7 @@ void dispose_lines(TextLines *txlines)
     if (txlines == NULL || txlines->lines == NULL)
         return;
 
-    munmap((char *)txlines->text, txlines->text_len);
+    munmap(const_cast<char *>(txlines->text), txlines->text_len);
     txlines->text = NULL;
 
     free((char **)txlines->lines);
