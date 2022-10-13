@@ -25,10 +25,8 @@ size_t map_file(const char *path, char **text, size_t map_extra)
 
     /* Open file descriptor */
     int fd = open(path, O_RDONLY);
-    if (fd < 0) {/* Cannot open file, errno set by open */
-        perror("Cannot open file.");
+    if (fd < 0)
         return 0;
-    }
 
     /* Get file size */
     struct stat file_stat = {};
@@ -46,10 +44,7 @@ size_t map_file(const char *path, char **text, size_t map_extra)
         PROT_READ | PROT_WRITE, MAP_PRIVATE, fd, 0);
     close(fd);
     if (mapping == MAP_FAILED) /* Mapping failed, errno set by mmap */
-    {
-        perror("Failed to read file.");
         return 0;
-    }
 
     *text = mapping;
     return (size_t)file_stat.st_size + map_extra;
